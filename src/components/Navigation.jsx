@@ -1,15 +1,23 @@
 // @ts-ignore;
 import React, { useState } from 'react';
 // @ts-ignore;
-import { Leaf, Menu, X } from 'lucide-react';
+import { ChevronLeft, Menu, X, Leaf } from 'lucide-react';
 // @ts-ignore;
 import { Button } from '@/components/ui';
 
+// @ts-ignore;
+import { LanguageSelector } from './LanguageSelector';
+// @ts-ignore;
+import { useTranslation } from '@/hooks/useTranslation';
 export function Navigation({
   $w,
   currentPage = 'index'
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const {
+    t,
+    changeLanguage
+  } = useTranslation();
   const handleNavigation = pageId => {
     $w.utils.navigateTo({
       pageId,
@@ -19,16 +27,16 @@ export function Navigation({
   };
   const navItems = [{
     id: 'index',
-    name: '首页'
+    name: t('nav.home')
   }, {
     id: 'tcm-products',
-    name: '产品中心'
+    name: t('nav.products')
   }, {
     id: 'tcm-about-us',
-    name: '关于我们'
+    name: t('nav.about')
   }, {
     id: 'tcm-contact-us',
-    name: '联系我们'
+    name: t('nav.contact')
   }];
   return <nav className="bg-white shadow-sm border-b sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -37,20 +45,26 @@ export function Navigation({
             <Leaf className="h-8 w-8 text-green-700" />
             <div>
               <h1 className="text-xl font-bold text-green-800">HerbalTrade</h1>
-              <p className="text-xs text-green-600">中药材外贸专家</p>
+              <p className="text-xs text-green-600">{t('nav.home')}</p>
             </div>
           </div>
 
-          <div className="hidden md:flex space-x-8">
+          <div className="hidden md:flex items-center space-x-8">
             {navItems.map(item => <button key={item.id} onClick={() => handleNavigation(item.id)} className={`px-3 py-2 text-sm font-medium transition-colors ${currentPage === item.id ? 'text-green-800 border-b-2 border-green-700' : 'text-green-700 hover:text-green-900'}`}>
                 {item.name}
               </button>)}
+            <LanguageSelector currentLang={t('nav.language')} onLanguageChange={changeLanguage} />
           </div>
 
-          <div className="md:hidden">
-            <Button variant="ghost" size="sm" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </Button>
+          <div className="flex items-center space-x-2">
+            <div className="hidden md:block">
+              <LanguageSelector currentLang={t('nav.language')} onLanguageChange={changeLanguage} />
+            </div>
+            <div className="md:hidden">
+              <Button variant="ghost" size="sm" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              </Button>
+            </div>
           </div>
         </div>
 
@@ -59,6 +73,9 @@ export function Navigation({
               {navItems.map(item => <button key={item.id} onClick={() => handleNavigation(item.id)} className={`block px-3 py-2 text-base font-medium w-full text-left ${currentPage === item.id ? 'text-green-800 bg-green-50' : 'text-green-700 hover:text-green-900'}`}>
                   {item.name}
                 </button>)}
+              <div className="px-3 py-2">
+                <LanguageSelector currentLang={t('nav.language')} onLanguageChange={changeLanguage} />
+              </div>
             </div>
           </div>}
       </div>
