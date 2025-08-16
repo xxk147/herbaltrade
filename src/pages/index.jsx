@@ -1,74 +1,14 @@
 // @ts-ignore;
 import React, { useState, useEffect } from 'react';
 // @ts-ignore;
-import { ChevronLeft, ChevronRight, ShoppingCart, Leaf, MapPin, Star, Phone, Mail, Facebook, Twitter, Instagram, Linkedin, Menu, X } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ShoppingCart, Leaf, MapPin, Star, Phone, Mail, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
 // @ts-ignore;
 import { Button, Card, CardContent, CardHeader, CardTitle, Badge } from '@/components/ui';
 
-// 导航栏组件 - 更新版本
-function Navigation({
-  $w
-}) {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const handleNavigation = pageId => {
-    $w.utils.navigateTo({
-      pageId,
-      params: {}
-    });
-    setIsMenuOpen(false);
-  };
-  return <nav className="bg-white shadow-sm border-b sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <div className="flex items-center space-x-2 cursor-pointer" onClick={() => handleNavigation('index')}>
-            <Leaf className="h-8 w-8 text-green-700" />
-            <div>
-              <h1 className="text-xl font-bold text-green-800">HerbalTrade</h1>
-              <p className="text-xs text-green-600">中药材外贸专家</p>
-            </div>
-          </div>
-
-          <div className="hidden md:flex space-x-8">
-            <button onClick={() => handleNavigation('index')} className="text-green-700 hover:text-green-900 px-3 py-2 text-sm font-medium">
-              首页
-            </button>
-            <button onClick={() => handleNavigation('tcm-products')} className="text-green-700 hover:text-green-900 px-3 py-2 text-sm font-medium">
-              产品中心
-            </button>
-            <button onClick={() => handleNavigation('tcm-about-us')} className="text-green-700 hover:text-green-900 px-3 py-2 text-sm font-medium">
-              关于我们
-            </button>
-            <button onClick={() => handleNavigation('tcm-contact-us')} className="text-green-700 hover:text-green-900 px-3 py-2 text-sm font-medium">
-              联系我们
-            </button>
-          </div>
-
-          <div className="md:hidden">
-            <Button variant="ghost" size="sm" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </Button>
-          </div>
-        </div>
-
-        {isMenuOpen && <div className="md:hidden border-t">
-            <div className="px-2 pt-2 pb-3 space-y-1">
-              <button onClick={() => handleNavigation('index')} className="text-green-700 hover:text-green-900 block px-3 py-2 text-base font-medium w-full text-left">
-                首页
-              </button>
-              <button onClick={() => handleNavigation('tcm-products')} className="text-green-700 hover:text-green-900 block px-3 py-2 text-base font-medium w-full text-left">
-                产品中心
-              </button>
-              <button onClick={() => handleNavigation('tcm-about-us')} className="text-green-700 hover:text-green-900 block px-3 py-2 text-base font-medium w-full text-left">
-                关于我们
-              </button>
-              <button onClick={() => handleNavigation('tcm-contact-us')} className="text-green-700 hover:text-green-900 block px-3 py-2 text-base font-medium w-full text-left">
-                联系我们
-              </button>
-            </div>
-          </div>}
-      </div>
-    </nav>;
-}
+// @ts-ignore;
+import { Navigation } from '@/components/Navigation';
+// @ts-ignore;
+import { Footer } from '@/components/Footer';
 
 // 轮播图组件
 function HeroCarousel({
@@ -94,7 +34,10 @@ function HeroCarousel({
             <div className="text-center text-white">
               <h1 className="text-4xl md:text-6xl font-bold mb-4">{image.title}</h1>
               <p className="text-xl md:text-2xl mb-8">传承千年中医药文化，服务全球健康事业</p>
-              <Button size="lg" className="bg-green-700 hover:bg-green-800 text-white">
+              <Button size="lg" className="bg-green-700 hover:bg-green-800 text-white" onClick={() => props.$w.utils.navigateTo({
+            pageId: 'tcm-products',
+            params: {}
+          })}>
                 立即探索
               </Button>
             </div>
@@ -150,90 +93,18 @@ function ProductCard({
         </div>
         <div className="flex items-center justify-between">
           <span className="text-lg font-bold text-green-800">{product.priceRange}</span>
-          <Button size="sm" className="bg-green-700 hover:bg-green-800">
+          <Button size="sm" className="bg-green-700 hover:bg-green-800" onClick={() => props.$w.utils.navigateTo({
+          pageId: 'tcm-product-detail',
+          params: {
+            id: product.id
+          }
+        })}>
             <ShoppingCart className="h-4 w-4 mr-1" />
             询盘
           </Button>
         </div>
       </CardContent>
     </Card>;
-}
-
-// 页脚组件
-function Footer({
-  $w
-}) {
-  return <footer className="bg-green-800 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div>
-            <div className="flex items-center space-x-2 mb-4 cursor-pointer" onClick={() => $w.utils.navigateTo({
-            pageId: 'index',
-            params: {}
-          })}>
-              <Leaf className="h-8 w-8" />
-              <div>
-                <h3 className="text-xl font-bold">华草国际</h3>
-                <p className="text-sm text-green-200">中药材外贸专家</p>
-              </div>
-            </div>
-            <p className="text-green-200 text-sm">
-              专注中药材种植、加工与出口贸易，为全球客户提供优质道地药材。
-            </p>
-            <div className="flex space-x-4 mt-4">
-              <a href="#" className="text-green-200 hover:text-white"><Facebook className="h-5 w-5" /></a>
-              <a href="#" className="text-green-200 hover:text-white"><Twitter className="h-5 w-5" /></a>
-              <a href="#" className="text-green-200 hover:text-white"><Instagram className="h-5 w-5" /></a>
-              <a href="#" className="text-green-200 hover:text-white"><Linkedin className="h-5 w-5" /></a>
-            </div>
-          </div>
-
-          <div>
-            <h4 className="text-lg font-semibold mb-4">快速链接</h4>
-            <ul className="space-y-2 text-sm">
-              <li><button onClick={() => $w.utils.navigateTo({
-                pageId: 'index',
-                params: {}
-              })} className="text-green-200 hover:text-white">首页</button></li>
-              <li><button onClick={() => $w.utils.navigateTo({
-                pageId: 'tcm-products',
-                params: {}
-              })} className="text-green-200 hover:text-white">产品中心</button></li>
-              <li><button onClick={() => $w.utils.navigateTo({
-                pageId: 'tcm-about-us',
-                params: {}
-              })} className="text-green-200 hover:text-white">关于我们</button></li>
-              <li><button onClick={() => $w.utils.navigateTo({
-                pageId: 'tcm-contact-us',
-                params: {}
-              })} className="text-green-200 hover:text-white">联系我们</button></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-lg font-semibold mb-4">联系我们</h4>
-            <ul className="space-y-2 text-sm">
-              <li className="flex items-center"><Phone className="h-4 w-4 mr-2" />+86 558 5555 8888</li>
-              <li className="flex items-center"><Mail className="h-4 w-4 mr-2" />info@herbaltrade.com</li>
-              <li className="flex items-center"><MapPin className="h-4 w-4 mr-2" />安徽省亳州市谯城区</li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-lg font-semibold mb-4">质量认证</h4>
-            <div className="space-y-2">
-              <Badge variant="secondary" className="bg-green-700">有机认证</Badge>
-              <Badge variant="secondary" className="bg-green-700">GAP认证</Badge>
-              <Badge variant="secondary" className="bg-green-700">出口资质</Badge>
-            </div>
-          </div>
-        </div>
-
-        <div className="border-t border-green-700 mt-8 pt-8 text-center">
-          <p className="text-green-200 text-sm">© 2024 华草国际. 保留所有权利.</p>
-        </div>
-      </div>
-    </footer>;
 }
 
 // 主页面组件
@@ -362,7 +233,7 @@ export default function HomePage(props) {
     });
   };
   return <div style={props.style} className="min-h-screen bg-gray-50">
-      <Navigation $w={props.$w} />
+      <Navigation $w={props.$w} currentPage="index" />
       
       {/* Hero Section */}
       {config.carousel.length > 0 && <HeroCarousel images={config.carousel} />}
