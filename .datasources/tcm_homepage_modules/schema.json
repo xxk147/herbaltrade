@@ -1,0 +1,54 @@
+
+{
+  "name": "tcm_homepage_modules",
+  "title": "中药材首页模块配置",
+  "schemas": [
+    {
+      "name": "module_type",
+      "title": "模块类型",
+      "type": "String"
+    },
+    {
+      "name": "title",
+      "title": "模块标题",
+      "type": "String"
+    },
+    {
+      "name": "sort_order",
+      "title": "排序权重",
+      "type": "Number"
+    },
+    {
+      "name": "is_enabled",
+      "title": "启用状态",
+      "type": "Boolean"
+    },
+    {
+      "name": "config_data",
+      "title": "配置数据",
+      "type": "Object"
+    },
+    {
+      "name": "images",
+      "title": "图片列表",
+      "type": "Array",
+      "items": {
+        "type": "Object"
+      }
+    },
+    {
+      "name": "categories",
+      "title": "分类列表",
+      "type": "Array",
+      "items": {
+        "type": "Object"
+      }
+    },
+    {
+      "name": "product_count",
+      "title": "产品数量",
+      "type": "Number"
+    }
+  ]
+}
+  

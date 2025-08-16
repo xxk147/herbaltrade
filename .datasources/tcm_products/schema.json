@@ -1,0 +1,82 @@
+
+{
+  "name": "tcm_products",
+  "title": "中药材产品",
+  "schemas": [
+    {
+      "name": "name",
+      "title": "产品名称",
+      "type": "String"
+    },
+    {
+      "name": "latin",
+      "title": "拉丁学名",
+      "type": "String"
+    },
+    {
+      "name": "efficacy",
+      "title": "功效分类",
+      "type": "Array",
+      "items": {
+        "type": "String"
+      }
+    },
+    {
+      "name": "part",
+      "title": "药材部位",
+      "type": "String"
+    },
+    {
+      "name": "origin",
+      "title": "产地",
+      "type": "String"
+    },
+    {
+      "name": "moq",
+      "title": "起订量(kg)",
+      "type": "Number"
+    },
+    {
+      "name": "price_range",
+      "title": "价格区间",
+      "type": "String"
+    },
+    {
+      "name": "grade",
+      "title": "等级",
+      "type": "String"
+    },
+    {
+      "name": "stock",
+      "title": "库存",
+      "type": "Number"
+    },
+    {
+      "name": "description",
+      "title": "功效描述",
+      "type": "MultiLineString"
+    },
+    {
+      "name": "images",
+      "title": "产品图片",
+      "type": "Array",
+      "items": {
+        "type": "Image"
+      }
+    },
+    {
+      "name": "certificates",
+      "title": "证书文件",
+      "type": "Array",
+      "items": {
+        "type": "File"
+      }
+    },
+    {
+      "name": "is_active",
+      "title": "上架状态",
+      "type": "Boolean"
+    }
+  ]
+}
+  

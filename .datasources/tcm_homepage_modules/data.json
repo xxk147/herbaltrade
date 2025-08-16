@@ -1,0 +1,114 @@
+
+[
+  {
+    "_id": "module_001",
+    "module_type": "carousel",
+    "title": "首页轮播图",
+    "sort_order": 1,
+    "is_enabled": true,
+    "config_data": {
+      "autoplay": true,
+      "interval": 3000,
+      "height": 600
+    },
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=1920&h=600&fit=crop",
+        "title": "千年传承 道地药材",
+        "link": "/products/ginseng",
+        "alt": "长白山野山参"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1595242000808-2b0d9b22931e?w=1920&h=600&fit=crop",
+        "title": "岷县当归 出口级品质",
+        "link": "/products/angelica",
+        "alt": "甘肃岷县当归"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=1920&h=600&fit=crop",
+        "title": "黄芪精品 补气之王",
+        "link": "/products/astragalus",
+        "alt": "内蒙古黄芪"
+      }
+    ],
+    "createdAt": 1735689600000,
+    "updatedAt": 1735689600000
+  },
+  {
+    "_id": "module_002",
+    "module_type": "category",
+    "title": "推荐分类",
+    "sort_order": 2,
+    "is_enabled": true,
+    "config_data": {
+      "layout": "grid",
+      "columns": 4
+    },
+    "categories": [
+      {
+        "name": "人参系列",
+        "image": "https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=300&h=300&fit=crop",
+        "link": "/category/ginseng",
+        "description": "补气养血，安神益智"
+      },
+      {
+        "name": "当归系列",
+        "image": "https://images.unsplash.com/photo-1595242000808-2b0d9b22931e?w=300&h=300&fit=crop",
+        "link": "/category/angelica",
+        "description": "补血活血，调经止痛"
+      },
+      {
+        "name": "黄芪系列",
+        "image": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=300&h=300&fit=crop",
+        "link": "/category/astragalus",
+        "description": "补气固表，利水消肿"
+      },
+      {
+        "name": "枸杞系列",
+        "image": "https://images.unsplash.com/photo-1586810160470-2d3cd0f7934b?w=300&h=300&fit=crop",
+        "link": "/category/goji",
+        "description": "滋补肝肾，益精明目"
+      }
+    ],
+    "createdAt": 1735689600000,
+    "updatedAt": 1735689600000
+  },
+  {
+    "_id": "module_003",
+    "module_type": "product",
+    "title": "热门产品",
+    "sort_order": 3,
+    "is_enabled": true,
+    "config_data": {
+      "layout": "grid",
+      "columns": 3,
+      "show_price": true,
+      "show_stock": true
+    },
+    "product_count": 6,
+    "createdAt": 1735689600000,
+    "updatedAt": 1735689600000
+  },
+  {
+    "_id": "module_004",
+    "module_type": "carousel",
+    "title": "促销活动",
+    "sort_order": 4,
+    "is_enabled": false,
+    "config_data": {
+      "autoplay": true,
+      "interval": 5000
+    },
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1559181567-c3190ca9959b?w=1920&h=600&fit=crop",
+        "title": "限时特惠 全场8折",
+        "link": "/promotions/sale",
+        "alt": "限时特惠"
+      }
+    ],
+    "createdAt": 1735689600000,
+    "updatedAt": 1735689600000
+  }
+]
+  

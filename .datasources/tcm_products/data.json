@@ -1,0 +1,209 @@
+
+[
+  {
+    "_id": "prod_001",
+    "name": "长白山野山参",
+    "latin": "Panax ginseng C.A. Mey",
+    "efficacy": ["补气", "养血", "安神"],
+    "part": "根",
+    "origin": "中国",
+    "moq": 1,
+    "price_range": "¥288-580/kg",
+    "grade": "特级",
+    "stock": 100,
+    "description": "精选长白山五年以上野山参，有效成分含量≥5%，人参皂苷Rg1+Re+Rb1≥2.5mg/g。具有大补元气、复脉固脱、益气摄血的功效。适用于体虚欲脱、肢冷脉微、气不摄血、崩漏下血等症状。",
+    "images": [
+      "https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=800&h=600&fit=crop"
+    ],
+    "certificates": [
+      {
+        "name": "有机认证证书.pdf",
+        "url": "/certificates/organic-cert-001.pdf"
+      },
+      {
+        "name": "质量检测报告.pdf",
+        "url": "/certificates/quality-report-001.pdf"
+      }
+    ],
+    "is_active": true,
+    "createdAt": 1735689600000,
+    "updatedAt": 1735689600000
+  },
+  {
+    "_id": "prod_002",
+    "name": "岷县当归",
+    "latin": "Angelica sinensis (Oliv.) Diels",
+    "efficacy": ["养血", "活血", "调经"],
+    "part": "根",
+    "origin": "中国",
+    "moq": 5,
+    "price_range": "¥89-168/kg",
+    "grade": "一级",
+    "stock": 200,
+    "description": "甘肃岷县道地当归，阿魏酸含量≥0.05%，挥发油≥0.4%。具有补血活血、调经止痛、润肠通便的功效。适用于血虚萎黄、眩晕心悸、月经不调、经闭痛经、虚寒腹痛、肠燥便秘等症状。",
+    "images": [
+      "https://images.unsplash.com/photo-1595242000808-2b0d9b22931e?w=800&h=600&fit=crop"
+    ],
+    "certificates": [
+      {
+        "name": "GAP认证证书.pdf",
+        "url": "/certificates/gap-cert-002.pdf"
+      }
+    ],
+    "is_active": true,
+    "createdAt": 1735689600000,
+    "updatedAt": 1735689600000
+  },
+  {
+    "_id": "prod_003",
+    "name": "内蒙古黄芪",
+    "latin": "Astragalus membranaceus (Fisch.) Bge",
+    "efficacy": ["补气", "固表", "利水"],
+    "part": "根",
+    "origin": "中国",
+    "moq": 10,
+    "price_range": "¥45-89/kg",
+    "grade": "特级",
+    "stock": 150,
+    "description": "内蒙古赤峰道地黄芪，黄芪甲苷含量≥0.04%，毛蕊异黄酮葡萄糖苷≥0.02%。具有补气升阳、固表止汗、利水消肿、生津养血的功效。适用于气虚乏力、食少便溏、中气下陷、久泻脱肛、便血崩漏等症状。",
+    "images": [
+      "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=800&h=600&fit=crop"
+    ],
+    "certificates": [
+      {
+        "name": "有机认证证书.pdf",
+        "url": "/certificates/organic-cert-003.pdf"
+      }
+    ],
+    "is_active": true,
+    "createdAt": 1735689600000,
+    "updatedAt": 1735689600000
+  },
+  {
+    "_id": "prod_004",
+    "name": "宁夏枸杞",
+    "latin": "Lycium barbarum L.",
+    "efficacy": ["滋阴", "补肾", "明目"],
+    "part": "果实",
+    "origin": "中国",
+    "moq": 2,
+    "price_range": "¥68-128/kg",
+    "grade": "特级",
+    "stock": 300,
+    "description": "宁夏中宁道地枸杞，枸杞多糖含量≥3%，甜菜碱≥0.5%。具有滋补肝肾、益精明目的功效。适用于虚劳精亏、腰膝酸痛、眩晕耳鸣、阳痿遗精、内热消渴、血虚萎黄、目昏不明等症状。",
+    "images": [
+      "https://images.unsplash.com/photo-1586810160470-2d3cd0f7934b?w=800&h=600&fit=crop"
+    ],
+    "certificates": [
+      {
+        "name": "有机认证证书.pdf",
+        "url": "/certificates/organic-cert-004.pdf"
+      }
+    ],
+    "is_active": true,
+    "createdAt": 1735689600000,
+    "updatedAt": 1735689600000
+  },
+  {
+    "_id": "prod_005",
+    "name": "韩国高丽参",
+    "latin": "Panax ginseng C.A. Mey",
+    "efficacy": ["补气", "养血", "安神"],
+    "part": "根",
+    "origin": "韩国",
+    "moq": 0.5,
+    "price_range": "¥580-1200/kg",
+    "grade": "天字级",
+    "stock": 50,
+    "description": "韩国六年根高丽参，人参皂苷Rg1+Re+Rb1≥8mg/g，人参皂苷Rb1≥2mg/g。具有大补元气、复脉固脱、益气摄血的功效。韩国传统炮制工艺，品质上乘，适用于体虚欲脱、肢冷脉微、气不摄血等症状。",
+    "images": [
+      "https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=800&h=600&fit=crop"
+    ],
+    "certificates": [
+      {
+        "name": "韩国认证证书.pdf",
+        "url": "/certificates/korea-cert-005.pdf"
+      }
+    ],
+    "is_active": false,
+    "createdAt": 1735689600000,
+    "updatedAt": 1735689600000
+  },
+  {
+    "_id": "prod_006",
+    "name": "印度藏红花",
+    "latin": "Crocus sativus L.",
+    "efficacy": ["活血", "养血", "安神"],
+    "part": "花",
+    "origin": "印度",
+    "moq": 0.1,
+    "price_range": "¥2800-4500/kg",
+    "grade": "特级",
+    "stock": 20,
+    "description": "印度克什米尔地区藏红花，西红花苷-I≥10%，西红花苷-II≥5%，苦番红花素≥20%。具有活血化瘀、凉血解毒、解郁安神的功效。适用于经闭癥瘕、产后瘀阻、温毒发斑、忧郁痞闷、惊悸发狂等症状。",
+    "images": [
+      "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=800&h=600&fit=crop"
+    ],
+    "certificates": [
+      {
+        "name": "原产地证书.pdf",
+        "url": "/certificates/origin-cert-006.pdf"
+      }
+    ],
+    "is_active": true,
+    "createdAt": 1735689600000,
+    "updatedAt": 1735689600000
+  },
+  {
+    "_id": "prod_007",
+    "name": "越南肉桂",
+    "latin": "Cinnamomum cassia Presl",
+    "efficacy": ["温阳", "散寒", "止痛"],
+    "part": "皮",
+    "origin": "越南",
+    "moq": 5,
+    "price_range": "¥45-89/kg",
+    "grade": "一级",
+    "stock": 80,
+    "description": "越南清化肉桂，桂皮醛≥85%，挥发油≥1.2%。具有补火助阳、引火归元、散寒止痛、温通经脉的功效。适用于阳痿宫冷、腰膝冷痛、肾虚作喘、虚阳上浮、眩晕目赤、心腹冷痛、虚寒吐泻等症状。",
+    "images": [
+      "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=800&h=600&fit=crop"
+    ],
+    "certificates": [
+      {
+        "name": "质量检测报告.pdf",
+        "url": "/certificates/quality-report-007.pdf"
+      }
+    ],
+    "is_active": true,
+    "createdAt": 1735689600000,
+    "updatedAt": 1735689600000
+  },
+  {
+    "_id": "prod_008",
+    "name": "中国金银花",
+    "latin": "Lonicera japonica Thunb.",
+    "efficacy": ["清热", "解毒", "凉血"],
+    "part": "花",
+    "origin": "中国",
+    "moq": 5,
+    "price_range": "¥55-95/kg",
+    "grade": "特级",
+    "stock": 120,
+    "description": "山东平邑道地金银花，绿原酸≥1.5%，木犀草苷≥0.05%。具有清热解毒、疏散风热的功效。适用于痈肿疔疮、喉痹、丹毒、热毒血痢、风热感冒、温病发热等症状。",
+    "images": [
+      "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=800&h=600&fit=crop"
+    ],
+    "certificates": [
+      {
+        "name": "有机认证证书.pdf",
+        "url": "/certificates/organic-cert-008.pdf"
+      }
+    ],
+    "is_active": true,
+    "createdAt": 1735689600000,
+    "updatedAt": 1735689600000
+  }
+]
+  
