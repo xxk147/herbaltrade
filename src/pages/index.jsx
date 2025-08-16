@@ -5,6 +5,71 @@ import { ChevronLeft, ChevronRight, ShoppingCart, Leaf, MapPin, Star, Phone, Mai
 // @ts-ignore;
 import { Button, Card, CardContent, CardHeader, CardTitle, Badge } from '@/components/ui';
 
+// 导航栏组件 - 更新版本
+function Navigation({
+  $w
+}) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const handleNavigation = pageId => {
+    $w.utils.navigateTo({
+      pageId,
+      params: {}
+    });
+    setIsMenuOpen(false);
+  };
+  return <nav className="bg-white shadow-sm border-b sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
+          <div className="flex items-center space-x-2 cursor-pointer" onClick={() => handleNavigation('index')}>
+            <Leaf className="h-8 w-8 text-green-700" />
+            <div>
+              <h1 className="text-xl font-bold text-green-800">HerbalTrade</h1>
+              <p className="text-xs text-green-600">中药材外贸专家</p>
+            </div>
+          </div>
+
+          <div className="hidden md:flex space-x-8">
+            <button onClick={() => handleNavigation('index')} className="text-green-700 hover:text-green-900 px-3 py-2 text-sm font-medium">
+              首页
+            </button>
+            <button onClick={() => handleNavigation('tcm-products')} className="text-green-700 hover:text-green-900 px-3 py-2 text-sm font-medium">
+              产品中心
+            </button>
+            <button onClick={() => handleNavigation('tcm-about-us')} className="text-green-700 hover:text-green-900 px-3 py-2 text-sm font-medium">
+              关于我们
+            </button>
+            <button onClick={() => handleNavigation('tcm-contact-us')} className="text-green-700 hover:text-green-900 px-3 py-2 text-sm font-medium">
+              联系我们
+            </button>
+          </div>
+
+          <div className="md:hidden">
+            <Button variant="ghost" size="sm" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </Button>
+          </div>
+        </div>
+
+        {isMenuOpen && <div className="md:hidden border-t">
+            <div className="px-2 pt-2 pb-3 space-y-1">
+              <button onClick={() => handleNavigation('index')} className="text-green-700 hover:text-green-900 block px-3 py-2 text-base font-medium w-full text-left">
+                首页
+              </button>
+              <button onClick={() => handleNavigation('tcm-products')} className="text-green-700 hover:text-green-900 block px-3 py-2 text-base font-medium w-full text-left">
+                产品中心
+              </button>
+              <button onClick={() => handleNavigation('tcm-about-us')} className="text-green-700 hover:text-green-900 block px-3 py-2 text-base font-medium w-full text-left">
+                关于我们
+              </button>
+              <button onClick={() => handleNavigation('tcm-contact-us')} className="text-green-700 hover:text-green-900 block px-3 py-2 text-base font-medium w-full text-left">
+                联系我们
+              </button>
+            </div>
+          </div>}
+      </div>
+    </nav>;
+}
+
 // 轮播图组件
 function HeroCarousel({
   images
@@ -94,53 +159,18 @@ function ProductCard({
     </Card>;
 }
 
-// 导航栏组件
-function Navigation() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  return <nav className="bg-white shadow-sm border-b">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <div className="flex items-center space-x-2">
-            <Leaf className="h-8 w-8 text-green-700" />
-            <div>
-              <h1 className="text-xl font-bold text-green-800">HerbalTrade</h1>
-              <p className="text-xs text-green-600">中药材外贸专家</p>
-            </div>
-          </div>
-
-          <div className="hidden md:flex space-x-8">
-            <a href="#home" className="text-green-700 hover:text-green-900 px-3 py-2 text-sm font-medium">首页</a>
-            <a href="#products" className="text-green-700 hover:text-green-900 px-3 py-2 text-sm font-medium">产品中心</a>
-            <a href="#about" className="text-green-700 hover:text-green-900 px-3 py-2 text-sm font-medium">关于我们</a>
-            <a href="#contact" className="text-green-700 hover:text-green-900 px-3 py-2 text-sm font-medium">联系我们</a>
-          </div>
-
-          <div className="md:hidden">
-            <Button variant="ghost" size="sm" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </Button>
-          </div>
-        </div>
-
-        {isMenuOpen && <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1">
-              <a href="#home" className="text-green-700 hover:text-green-900 block px-3 py-2 text-base font-medium">首页</a>
-              <a href="#products" className="text-green-700 hover:text-green-900 block px-3 py-2 text-base font-medium">产品中心</a>
-              <a href="#about" className="text-green-700 hover:text-green-900 block px-3 py-2 text-base font-medium">关于我们</a>
-              <a href="#contact" className="text-green-700 hover:text-green-900 block px-3 py-2 text-base font-medium">联系我们</a>
-            </div>
-          </div>}
-      </div>
-    </nav>;
-}
-
 // 页脚组件
-function Footer() {
+function Footer({
+  $w
+}) {
   return <footer className="bg-green-800 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <div className="flex items-center space-x-2 mb-4">
+            <div className="flex items-center space-x-2 mb-4 cursor-pointer" onClick={() => $w.utils.navigateTo({
+            pageId: 'index',
+            params: {}
+          })}>
               <Leaf className="h-8 w-8" />
               <div>
                 <h3 className="text-xl font-bold">华草国际</h3>
@@ -159,12 +189,24 @@ function Footer() {
           </div>
 
           <div>
-            <h4 className="text-lg font-semibold mb-4">产品分类</h4>
+            <h4 className="text-lg font-semibold mb-4">快速链接</h4>
             <ul className="space-y-2 text-sm">
-              <li><a href="#" className="text-green-200 hover:text-white">人参系列</a></li>
-              <li><a href="#" className="text-green-200 hover:text-white">当归系列</a></li>
-              <li><a href="#" className="text-green-200 hover:text-white">黄芪系列</a></li>
-              <li><a href="#" className="text-green-200 hover:text-white">枸杞系列</a></li>
+              <li><button onClick={() => $w.utils.navigateTo({
+                pageId: 'index',
+                params: {}
+              })} className="text-green-200 hover:text-white">首页</button></li>
+              <li><button onClick={() => $w.utils.navigateTo({
+                pageId: 'tcm-products',
+                params: {}
+              })} className="text-green-200 hover:text-white">产品中心</button></li>
+              <li><button onClick={() => $w.utils.navigateTo({
+                pageId: 'tcm-about-us',
+                params: {}
+              })} className="text-green-200 hover:text-white">关于我们</button></li>
+              <li><button onClick={() => $w.utils.navigateTo({
+                pageId: 'tcm-contact-us',
+                params: {}
+              })} className="text-green-200 hover:text-white">联系我们</button></li>
             </ul>
           </div>
 
@@ -173,7 +215,7 @@ function Footer() {
             <ul className="space-y-2 text-sm">
               <li className="flex items-center"><Phone className="h-4 w-4 mr-2" />+86 558 5555 8888</li>
               <li className="flex items-center"><Mail className="h-4 w-4 mr-2" />info@herbaltrade.com</li>
-              <li className="flex items-center"><Star className="h-4 w-4 mr-2" />安徽省亳州市谯城区</li>
+              <li className="flex items-center"><MapPin className="h-4 w-4 mr-2" />安徽省亳州市谯城区</li>
             </ul>
           </div>
 
@@ -320,7 +362,7 @@ export default function HomePage(props) {
     });
   };
   return <div style={props.style} className="min-h-screen bg-gray-50">
-      <Navigation />
+      <Navigation $w={props.$w} />
       
       {/* Hero Section */}
       {config.carousel.length > 0 && <HeroCarousel images={config.carousel} />}
@@ -389,6 +431,20 @@ export default function HomePage(props) {
                   <span className="text-gray-700">出口资质齐全</span>
                 </div>
               </div>
+              <div className="mt-6 space-x-4">
+                <Button className="bg-green-700 hover:bg-green-800" onClick={() => props.$w.utils.navigateTo({
+                pageId: 'tcm-about-us',
+                params: {}
+              })}>
+                  了解更多
+                </Button>
+                <Button variant="outline" className="border-green-700 text-green-700 hover:bg-green-50" onClick={() => props.$w.utils.navigateTo({
+                pageId: 'tcm-contact-us',
+                params: {}
+              })}>
+                  联系我们
+                </Button>
+              </div>
             </div>
             <div>
               <img src="https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=600&h=400&fit=crop" alt="中药材基地" className="rounded-lg shadow-lg" />
@@ -397,6 +453,6 @@ export default function HomePage(props) {
         </div>
       </section>
       
-      <Footer />
+      <Footer $w={props.$w} />
     </div>;
 }
