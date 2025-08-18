@@ -1,0 +1,13 @@
+
+{
+  "name": "inquiry_email_config",
+  "title": "询盘转发邮箱配置",
+  "schemas": [
+    {
+      "name": "email",
+      "title": "邮箱地址",
+      "type": "Email"
+    }
+  ]
+}
+  

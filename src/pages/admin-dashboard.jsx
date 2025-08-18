@@ -1,374 +1,351 @@
 // @ts-ignore;
 import React, { useState, useEffect } from 'react';
 // @ts-ignore;
-import { Settings, Eye, EyeOff, Save, RotateCcw, Plus, Trash2, GripVertical, Upload, Image as ImageIcon } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle, Button, Input, useToast } from '@/components/ui';
 // @ts-ignore;
-import { Button, Card, CardContent, CardHeader, CardTitle, Switch, Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, Input, Textarea, Select, SelectTrigger, SelectValue, SelectContent, SelectItem, Alert, AlertDescription } from '@/components/ui';
+import { Mail, Settings, Users, ShoppingCart, TrendingUp, Package, Bell, Shield, Badge } from 'lucide-react';
 
-// 拖拽排序组件
-function DraggableModule({
-  module,
-  index,
-  moveModule,
-  onEdit
-}) {
-  const [isDragging, setIsDragging] = useState(false);
-  const handleDragStart = e => {
-    e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData('index', index.toString());
-    setIsDragging(true);
-  };
-  const handleDragEnd = () => {
-    setIsDragging(false);
-  };
-  const handleDragOver = e => {
-    e.preventDefault();
-  };
-  const handleDrop = e => {
-    e.preventDefault();
-    const dragIndex = parseInt(e.dataTransfer.getData('index'));
-    const hoverIndex = index;
-    if (dragIndex !== hoverIndex) {
-      moveModule(dragIndex, hoverIndex);
-    }
-  };
-  return <div className={`p-4 bg-white rounded-lg shadow-sm border-2 ${isDragging ? 'border-green-500 opacity-50' : 'border-gray-200'} cursor-move`} draggable onDragStart={handleDragStart} onDragEnd={handleDragEnd} onDragOver={handleDragOver} onDrop={handleDrop}>
-    <div className="flex items-center justify-between">
-      <div className="flex items-center space-x-3">
-        <GripVertical className="h-5 w-5 text-gray-400" />
-        <div>
-          <h4 className="font-medium text-gray-900">{module.title}</h4>
-          <p className="text-sm text-gray-600">{module.type}</p>
-        </div>
-      </div>
-      <div className="flex items-center space-x-2">
-        <Switch checked={module.visible} onCheckedChange={checked => onEdit(index, {
-          ...module,
-          visible: checked
-        })} />
-        <Button variant="ghost" size="sm" onClick={() => onEdit(index, module)}>
-          编辑
-        </Button>
-      </div>
-    </div>
-  </div>;
-}
+// 模拟数据
+const mockStats = {
+  totalProducts: 156,
+  totalOrders: 2341,
+  totalUsers: 892,
+  monthlyRevenue: 156800,
+  pendingOrders: 23,
+  lowStockAlerts: 8
+};
 
-// 模块编辑对话框
-function ModuleEditDialog({
-  module,
-  onSave,
-  onClose
-}) {
-  const [editedModule, setEditedModule] = useState(module);
-  const handleSave = () => {
-    onSave(editedModule);
-    onClose();
-  };
-  return <Dialog open={true} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl">
-        <DialogHeader>
-          <DialogTitle>编辑模块</DialogTitle>
-        </DialogHeader>
-        <div className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium mb-1">模块标题</label>
-            <Input value={editedModule.title} onChange={e => setEditedModule(prev => ({
-            ...prev,
-            title: e.target.value
-          }))} />
-          </div>
-          
-          {editedModule.type === 'carousel' && <div>
-              <label className="block text-sm font-medium mb-2">轮播图片</label>
-              <div className="space-y-2">
-                {editedModule.images?.map((img, index) => <div key={index} className="flex items-center space-x-2">
-                    <Input placeholder="图片URL" value={img.url} onChange={e => {
-                const newImages = [...editedModule.images];
-                newImages[index].url = e.target.value;
-                setEditedModule(prev => ({
-                  ...prev,
-                  images: newImages
-                }));
-              }} />
-                    <Input placeholder="标题" value={img.title} onChange={e => {
-                const newImages = [...editedModule.images];
-                newImages[index].title = e.target.value;
-                setEditedModule(prev => ({
-                  ...prev,
-                  images: newImages
-                }));
-              }} />
-                    <Button variant="ghost" size="sm" onClick={() => {
-                const newImages = editedModule.images.filter((_, i) => i !== index);
-                setEditedModule(prev => ({
-                  ...prev,
-                  images: newImages
-                }));
-              }}>
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </div>)}
-                <Button variant="outline" size="sm" onClick={() => {
-              setEditedModule(prev => ({
-                ...prev,
-                images: [...(prev.images || []), {
-                  url: '',
-                  title: ''
-                }]
-              }));
-            }}>
-                  <Plus className="h-4 w-4 mr-1" />
-                  添加图片
-                </Button>
-              </div>
-            </div>}
-
-          {editedModule.type === 'categories' && <div>
-              <label className="block text-sm font-medium mb-2">推荐分类</label>
-              <div className="space-y-2">
-                {editedModule.categories?.map((cat, index) => <div key={index} className="flex items-center space-x-2">
-                    <Input placeholder="分类名称" value={cat.name} onChange={e => {
-                const newCategories = [...editedModule.categories];
-                newCategories[index].name = e.target.value;
-                setEditedModule(prev => ({
-                  ...prev,
-                  categories: newCategories
-                }));
-              }} />
-                    <Input placeholder="图片URL" value={cat.image} onChange={e => {
-                const newCategories = [...editedModule.categories];
-                newCategories[index].image = e.target.value;
-                setEditedModule(prev => ({
-                  ...prev,
-                  categories: newCategories
-                }));
-              }} />
-                    <Button variant="ghost" size="sm" onClick={() => {
-                const newCategories = editedModule.categories.filter((_, i) => i !== index);
-                setEditedModule(prev => ({
-                  ...prev,
-                  categories: newCategories
-                }));
-              }}>
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </div>)}
-                <Button variant="outline" size="sm" onClick={() => {
-              setEditedModule(prev => ({
-                ...prev,
-                categories: [...(prev.categories || []), {
-                  name: '',
-                  image: ''
-                }]
-              }));
-            }}>
-                  <Plus className="h-4 w-4 mr-1" />
-                  添加分类
-                </Button>
-              </div>
-            </div>}
-
-          {editedModule.type === 'products' && <div>
-              <label className="block text-sm font-medium mb-2">热门产品</label>
-              <Input type="number" placeholder="显示产品数量" value={editedModule.count || 6} onChange={e => setEditedModule(prev => ({
-            ...prev,
-            count: parseInt(e.target.value) || 6
-          }))} />
-            </div>}
-        </div>
-        <div className="flex justify-end space-x-2 mt-6">
-          <Button variant="outline" onClick={onClose}>取消</Button>
-          <Button onClick={handleSave}>保存</Button>
-        </div>
-      </DialogContent>
-    </Dialog>;
-}
-
-// 主页面组件
+// 模拟图表数据
+const chartData = [{
+  month: '1月',
+  revenue: 45000,
+  orders: 120
+}, {
+  month: '2月',
+  revenue: 52000,
+  orders: 145
+}, {
+  month: '3月',
+  revenue: 48000,
+  orders: 132
+}, {
+  month: '4月',
+  revenue: 61000,
+  orders: 168
+}, {
+  month: '5月',
+  revenue: 58000,
+  orders: 155
+}, {
+  month: '6月',
+  revenue: 72000,
+  orders: 189
+}];
 export default function AdminDashboardPage(props) {
-  const [modules, setModules] = useState([{
-    id: 1,
-    type: 'carousel',
-    title: '首页轮播图',
-    visible: true,
-    images: [{
-      url: 'https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=1920&h=600&fit=crop',
-      title: '千年传承 道地药材'
-    }, {
-      url: 'https://images.unsplash.com/photo-1595242000808-2b0d9b22931e?w=1920&h=600&fit=crop',
-      title: '岷县当归 出口级品质'
-    }, {
-      url: 'https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=1920&h=600&fit=crop',
-      title: '黄芪精品 补气之王'
-    }]
-  }, {
-    id: 2,
-    type: 'categories',
-    title: '推荐分类',
-    visible: true,
-    categories: [{
-      name: '人参系列',
-      image: 'https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=300&h=300&fit=crop'
-    }, {
-      name: '当归系列',
-      image: 'https://images.unsplash.com/photo-1595242000808-2b0d9b22931e?w=300&h=300&fit=crop'
-    }, {
-      name: '黄芪系列',
-      image: 'https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=300&h=300&fit=crop'
-    }, {
-      name: '枸杞系列',
-      image: 'https://images.unsplash.com/photo-1586810160470-2d3cd0f7934b?w=300&h=300&fit=crop'
-    }]
-  }, {
-    id: 3,
-    type: 'products',
-    title: '热门产品',
-    visible: true,
-    count: 6
-  }]);
-  const [editingModule, setEditingModule] = useState(null);
-  const [previewMode, setPreviewMode] = useState(false);
-  const [saveStatus, setSaveStatus] = useState('');
+  const {
+    toast
+  } = useToast();
+  const [stats, setStats] = useState(mockStats);
+  const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [saving, setSaving] = useState(false);
 
-  // 模拟保存到本地存储
+  // 加载已保存的邮箱
   useEffect(() => {
-    const saved = localStorage.getItem('tcm-homepage-config');
-    if (saved) {
-      setModules(JSON.parse(saved));
-    }
+    loadEmailConfig();
   }, []);
-  const saveToLocalStorage = newModules => {
-    localStorage.setItem('tcm-homepage-config', JSON.stringify(newModules));
-    setSaveStatus('已保存到本地存储');
-    setTimeout(() => setSaveStatus(''), 2000);
+
+  // 从数据模型加载邮箱配置
+  const loadEmailConfig = async () => {
+    setLoading(true);
+    try {
+      const result = await props.$w.cloud.callDataSource({
+        dataSourceName: 'inquiry_email_config',
+        methodName: 'wedaGetRecordsV2',
+        params: {
+          select: {
+            $master: true
+          },
+          pageSize: 1,
+          pageNumber: 1
+        }
+      });
+      if (result.records && result.records.length > 0) {
+        setEmail(result.records[0].email || '');
+      } else {
+        // 如果没有记录，使用默认值
+        setEmail('sales@herbaltrade.com');
+      }
+    } catch (error) {
+      console.error('加载邮箱配置失败:', error);
+      toast({
+        title: "加载失败",
+        description: "无法加载邮箱配置，请稍后重试",
+        variant: "destructive"
+      });
+      setEmail('sales@herbaltrade.com');
+    } finally {
+      setLoading(false);
+    }
   };
-  const moveModule = (dragIndex, hoverIndex) => {
-    const newModules = [...modules];
-    const draggedModule = newModules[dragIndex];
-    newModules.splice(dragIndex, 1);
-    newModules.splice(hoverIndex, 0, draggedModule);
-    setModules(newModules);
-    saveToLocalStorage(newModules);
+
+  // 保存邮箱配置到数据模型
+  const handleSaveEmail = async () => {
+    if (!email) {
+      toast({
+        title: "错误",
+        description: "请输入邮箱地址",
+        variant: "destructive"
+      });
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      toast({
+        title: "错误",
+        description: "请输入有效的邮箱地址",
+        variant: "destructive"
+      });
+      return;
+    }
+    setSaving(true);
+    try {
+      // 先查询是否已存在记录
+      const existing = await props.$w.cloud.callDataSource({
+        dataSourceName: 'inquiry_email_config',
+        methodName: 'wedaGetRecordsV2',
+        params: {
+          select: {
+            $master: true
+          },
+          pageSize: 1,
+          pageNumber: 1
+        }
+      });
+      if (existing.records && existing.records.length > 0) {
+        // 更新现有记录
+        await props.$w.cloud.callDataSource({
+          dataSourceName: 'inquiry_email_config',
+          methodName: 'wedaUpdateV2',
+          params: {
+            data: {
+              email: email
+            },
+            filter: {
+              where: {
+                _id: {
+                  $eq: existing.records[0]._id
+                }
+              }
+            }
+          }
+        });
+      } else {
+        // 创建新记录
+        await props.$w.cloud.callDataSource({
+          dataSourceName: 'inquiry_email_config',
+          methodName: 'wedaCreateV2',
+          params: {
+            data: {
+              email: email
+            }
+          }
+        });
+      }
+      toast({
+        title: "保存成功",
+        description: "询盘转发邮箱已更新",
+        variant: "default"
+      });
+    } catch (error) {
+      console.error('保存邮箱配置失败:', error);
+      toast({
+        title: "保存失败",
+        description: "请稍后重试",
+        variant: "destructive"
+      });
+    } finally {
+      setSaving(false);
+    }
   };
-  const updateModule = (index, updatedModule) => {
-    const newModules = [...modules];
-    newModules[index] = updatedModule;
-    setModules(newModules);
-    saveToLocalStorage(newModules);
-  };
-  const resetToDefault = () => {
-    const defaultModules = [{
-      id: 1,
-      type: 'carousel',
-      title: '首页轮播图',
-      visible: true,
-      images: [{
-        url: 'https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=1920&h=600&fit=crop',
-        title: '千年传承 道地药材'
-      }, {
-        url: 'https://images.unsplash.com/photo-1595242000808-2b0d9b22931e?w=1920&h=600&fit=crop',
-        title: '岷县当归 出口级品质'
-      }, {
-        url: 'https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=1920&h=600&fit=crop',
-        title: '黄芪精品 补气之王'
-      }]
-    }, {
-      id: 2,
-      type: 'categories',
-      title: '推荐分类',
-      visible: true,
-      categories: [{
-        name: '人参系列',
-        image: 'https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=300&h=300&fit=crop'
-      }, {
-        name: '当归系列',
-        image: 'https://images.unsplash.com/photo-1595242000808-2b0d9b22931e?w=300&h=300&fit=crop'
-      }, {
-        name: '黄芪系列',
-        image: 'https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=300&h=300&fit=crop'
-      }, {
-        name: '枸杞系列',
-        image: 'https://images.unsplash.com/photo-1586810160470-2d3cd0f7934b?w=300&h=300&fit=crop'
-      }]
-    }, {
-      id: 3,
-      type: 'products',
-      title: '热门产品',
-      visible: true,
-      count: 6
-    }];
-    setModules(defaultModules);
-    saveToLocalStorage(defaultModules);
-  };
-  return <div style={props.style} className="min-h-screen bg-gray-50">
+  return <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <h1 className="text-xl font-bold text-green-800">中药材后台管理</h1>
+            <h1 className="text-2xl font-bold text-green-800">管理后台</h1>
             <div className="flex items-center space-x-4">
-              <Button variant="outline" size="sm" onClick={() => setPreviewMode(!previewMode)}>
-                {previewMode ? <EyeOff className="h-4 w-4 mr-1" /> : <Eye className="h-4 w-4 mr-1" />}
-                {previewMode ? '退出预览' : '预览效果'}
-              </Button>
-              <Button variant="outline" size="sm" onClick={resetToDefault}>
-                <RotateCcw className="h-4 w-4 mr-1" />
-                重置默认
-              </Button>
-              <Button onClick={() => saveToLocalStorage(modules)}>
-                <Save className="h-4 w-4 mr-1" />
-                保存配置
+              <span className="text-sm text-gray-600">欢迎，管理员</span>
+              <Button variant="outline" size="sm" onClick={() => props.$w.utils.navigateTo({
+              pageId: 'index',
+              params: {}
+            })}>
+                返回前台
               </Button>
             </div>
           </div>
         </div>
       </header>
 
-      {/* Save Status */}
-      {saveStatus && <Alert className="mx-auto max-w-7xl mt-4">
-          <AlertDescription>{saveStatus}</AlertDescription>
-        </Alert>}
-
-      {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {previewMode ?
-      // 预览模式
-      <div className="bg-white rounded-lg shadow-sm p-6">
-            <h2 className="text-lg font-semibold mb-4">首页预览</h2>
-            <div className="space-y-8">
-              {modules.filter(m => m.visible).map((module, index) => <div key={module.id} className="border rounded-lg p-4">
-                  <h3 className="font-medium mb-2">{module.title}</h3>
-                  <div className="text-sm text-gray-600">
-                    {module.type === 'carousel' && `轮播图: ${module.images?.length || 0} 张图片`}
-                    {module.type === 'categories' && `分类: ${module.categories?.length || 0} 个`}
-                    {module.type === 'products' && `产品: ${module.count || 6} 个`}
-                  </div>
-                </div>)}
-            </div>
-          </div> :
-      // 编辑模式
-      <div>
-            <h2 className="text-lg font-semibold mb-4">首页模块配置</h2>
-            <p className="text-gray-600 mb-6">拖拽模块调整顺序，点击编辑按钮修改内容</p>
-            
-            <div className="space-y-4">
-              {modules.map((module, index) => <DraggableModule key={module.id} module={module} index={index} moveModule={moveModule} onEdit={(idx, updatedModule) => {
-            if (typeof updatedModule === 'object' && updatedModule.id) {
-              setEditingModule(updatedModule);
-            } else {
-              updateModule(idx, updatedModule);
-            }
-          }} />)}
-            </div>
-          </div>}
-      </main>
+        {/* Stats Overview */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <Card>
+            <CardContent className="p-6">
+              <div className="flex items-center">
+                <Package className="h-8 w-8 text-green-600" />
+                <div className="ml-4">
+                  <p className="text-sm font-medium text-gray-600">产品总数</p>
+                  <p className="text-2xl font-bold text-gray-900">{stats.totalProducts}</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
 
-      {/* Edit Dialog */}
-      {editingModule && <ModuleEditDialog module={editingModule} onSave={updatedModule => {
-      const index = modules.findIndex(m => m.id === updatedModule.id);
-      updateModule(index, updatedModule);
-      setEditingModule(null);
-    }} onClose={() => setEditingModule(null)} />}
+          <Card>
+            <CardContent className="p-6">
+              <div className="flex items-center">
+                <ShoppingCart className="h-8 w-8 text-blue-600" />
+                <div className="ml-4">
+                  <p className="text-sm font-medium text-gray-600">订单总数</p>
+                  <p className="text-2xl font-bold text-gray-900">{stats.totalOrders}</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent className="p-6">
+              <div className="flex items-center">
+                <Users className="h-8 w-8 text-purple-600" />
+                <div className="ml-4">
+                  <p className="text-sm font-medium text-gray-600">用户总数</p>
+                  <p className="text-2xl font-bold text-gray-900">{stats.totalUsers}</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent className="p-6">
+              <div className="flex items-center">
+                <TrendingUp className="h-8 w-8 text-orange-600" />
+                <div className="ml-4">
+                  <p className="text-sm font-medium text-gray-600">本月营收</p>
+                  <p className="text-2xl font-bold text-gray-900">¥{stats.monthlyRevenue.toLocaleString()}</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Quick Actions */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg">快捷操作</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              <Button className="w-full justify-start" variant="outline" onClick={() => props.$w.utils.navigateTo({
+              pageId: 'admin-products',
+              params: {}
+            })}>
+                <Package className="h-4 w-4 mr-2" />
+                产品管理
+              </Button>
+              <Button className="w-full justify-start" variant="outline" onClick={() => props.$w.utils.navigateTo({
+              pageId: 'admin-messages',
+              params: {}
+            })}>
+                <Mail className="h-4 w-4 mr-2" />
+                客户留言
+              </Button>
+              <Button className="w-full justify-start" variant="outline" onClick={() => props.$w.utils.navigateTo({
+              pageId: 'admin-settings',
+              params: {}
+            })}>
+                <Settings className="h-4 w-4 mr-2" />
+                系统设置
+              </Button>
+            </CardContent>
+          </Card>
+
+          {/* 询盘转发邮箱绑定模块 - 已接入数据模型 */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg flex items-center">
+                <Mail className="h-5 w-5 mr-2 text-green-600" />
+                询盘转发邮箱绑定
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  接收询盘邮箱
+                </label>
+                <Input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="请输入邮箱地址" className="w-full" disabled={loading} />
+                <p className="text-xs text-gray-500 mt-1">
+                  填写后将把前台询盘信息自动转发至此邮箱
+                </p>
+              </div>
+              
+              <Button onClick={handleSaveEmail} disabled={saving || loading} className="w-full bg-green-700 hover:bg-green-800">
+                {saving ? '保存中...' : '保存'}
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg">系统状态</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-gray-600">待处理订单</span>
+                <Badge variant="secondary" className="bg-red-100 text-red-800">
+                  {stats.pendingOrders}
+                </Badge>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-gray-600">库存预警</span>
+                <Badge variant="secondary" className="bg-yellow-100 text-yellow-800">
+                  {stats.lowStockAlerts}
+                </Badge>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-gray-600">系统状态</span>
+                <Badge variant="secondary" className="bg-green-100 text-green-800">
+                  正常运行
+                </Badge>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Recent Activity */}
+        <Card>
+          <CardHeader>
+            <CardTitle>最近活动</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="flex items-center space-x-3">
+                <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+                <span className="text-sm text-gray-600">新订单 #20240115001 - 长白山野山参 50kg</span>
+                <span className="text-xs text-gray-400 ml-auto">2分钟前</span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <div className="h-2 w-2 bg-blue-500 rounded-full"></div>
+                <span className="text-sm text-gray-600">新用户注册 - 张三</span>
+                <span className="text-xs text-gray-400 ml-auto">15分钟前</span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <div className="h-2 w-2 bg-purple-500 rounded-full"></div>
+                <span className="text-sm text-gray-600">产品更新 - 岷县当归库存补充</span>
+                <span className="text-xs text-gray-400 ml-auto">1小时前</span>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </main>
     </div>;
 }
