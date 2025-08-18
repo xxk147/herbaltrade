@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 // @ts-ignore;
 import { Card, CardContent, CardHeader, CardTitle, Button, Input, useToast } from '@/components/ui';
 // @ts-ignore;
-import { Mail, Settings, Users, ShoppingCart, TrendingUp, Package, Bell, Shield, Badge } from 'lucide-react';
+import { Mail, Settings, Users, ShoppingCart, TrendingUp, Package, Bell, Shield, Badge, FileText, MessageSquare } from 'lucide-react';
 
 // 模拟数据
 const mockStats = {
@@ -167,6 +167,14 @@ export default function AdminDashboardPage(props) {
       setSaving(false);
     }
   };
+
+  // 导航到对应管理页面
+  const navigateToPage = pageId => {
+    props.$w.utils.navigateTo({
+      pageId: pageId,
+      params: {}
+    });
+  };
   return <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <header className="bg-white shadow-sm border-b">
@@ -175,10 +183,7 @@ export default function AdminDashboardPage(props) {
             <h1 className="text-2xl font-bold text-green-800">管理后台</h1>
             <div className="flex items-center space-x-4">
               <span className="text-sm text-gray-600">欢迎，管理员</span>
-              <Button variant="outline" size="sm" onClick={() => props.$w.utils.navigateTo({
-              pageId: 'index',
-              params: {}
-            })}>
+              <Button variant="outline" size="sm" onClick={() => navigateToPage('index')}>
                 返回前台
               </Button>
             </div>
@@ -245,24 +250,27 @@ export default function AdminDashboardPage(props) {
               <CardTitle className="text-lg">快捷操作</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
-              <Button className="w-full justify-start" variant="outline" onClick={() => props.$w.utils.navigateTo({
-              pageId: 'admin-products',
-              params: {}
-            })}>
+              <Button className="w-full justify-start" variant="outline" onClick={() => navigateToPage('admin-products')}>
                 <Package className="h-4 w-4 mr-2" />
                 产品管理
               </Button>
-              <Button className="w-full justify-start" variant="outline" onClick={() => props.$w.utils.navigateTo({
-              pageId: 'admin-messages',
-              params: {}
-            })}>
-                <Mail className="h-4 w-4 mr-2" />
-                客户留言
+              <Button className="w-full justify-start" variant="outline" onClick={() => navigateToPage('admin-orders')}>
+                <ShoppingCart className="h-4 w-4 mr-2" />
+                订单管理
               </Button>
-              <Button className="w-full justify-start" variant="outline" onClick={() => props.$w.utils.navigateTo({
-              pageId: 'admin-settings',
-              params: {}
-            })}>
+              <Button className="w-full justify-start" variant="outline" onClick={() => navigateToPage('admin-users')}>
+                <Users className="h-4 w-4 mr-2" />
+                用户管理
+              </Button>
+              <Button className="w-full justify-start" variant="outline" onClick={() => navigateToPage('admin-inquiries')}>
+                <MessageSquare className="h-4 w-4 mr-2" />
+                询盘管理
+              </Button>
+              <Button className="w-full justify-start" variant="outline" onClick={() => navigateToPage('admin-content')}>
+                <FileText className="h-4 w-4 mr-2" />
+                内容管理
+              </Button>
+              <Button className="w-full justify-start" variant="outline" onClick={() => navigateToPage('admin-settings')}>
                 <Settings className="h-4 w-4 mr-2" />
                 系统设置
               </Button>
