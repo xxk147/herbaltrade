@@ -1,0 +1,78 @@
+
+{
+  "name": "system_settings",
+  "title": "网站系统配置",
+  "schemas": [
+    {
+      "name": "website_name",
+      "title": "网站名称",
+      "type": "String"
+    },
+    {
+      "name": "website_logo",
+      "title": "网站LOGO",
+      "type": "Image"
+    },
+    {
+      "name": "seo_title",
+      "title": "SEO标题",
+      "type": "String"
+    },
+    {
+      "name": "seo_keywords",
+      "title": "SEO关键词",
+      "type": "String"
+    },
+    {
+      "name": "seo_description",
+      "title": "SEO描述",
+      "type": "MultiLineString"
+    },
+    {
+      "name": "contact_phone",
+      "title": "联系电话",
+      "type": "String"
+    },
+    {
+      "name": "contact_email",
+      "title": "联系邮箱",
+      "type": "Email"
+    },
+    {
+      "name": "contact_address",
+      "title": "公司地址",
+      "type": "MultiLineString"
+    },
+    {
+      "name": "social_wechat",
+      "title": "微信公众号",
+      "type": "String"
+    },
+    {
+      "name": "social_weibo",
+      "title": "新浪微博",
+      "type": "String"
+    },
+    {
+      "name": "social_facebook",
+      "title": "Facebook",
+      "type": "String"
+    },
+    {
+      "name": "social_instagram",
+      "title": "Instagram",
+      "type": "String"
+    },
+    {
+      "name": "legal_icp",
+      "title": "ICP备案号",
+      "type": "String"
+    },
+    {
+      "name": "legal_police",
+      "title": "公安备案号",
+      "type": "String"
+    }
+  ]
+}
+  

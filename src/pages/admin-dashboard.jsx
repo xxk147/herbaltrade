@@ -1,9 +1,9 @@
 // @ts-ignore;
 import React, { useState, useEffect } from 'react';
 // @ts-ignore;
-import { Card, CardContent, CardHeader, CardTitle, Button, Input, useToast } from '@/components/ui';
+import { Card, CardContent, CardHeader, CardTitle, Button, Input, Badge, useToast } from '@/components/ui';
 // @ts-ignore;
-import { Mail, Settings, Users, ShoppingCart, TrendingUp, Package, Bell, Shield, Badge, FileText, MessageSquare } from 'lucide-react';
+import { Mail, Settings, Users, ShoppingCart, TrendingUp, Package, Bell, Shield, Badge as BadgeIcon, FileText, MessageSquare, UserCheck, Phone, Settings2 } from 'lucide-react';
 
 // 模拟数据
 const mockStats = {
@@ -259,20 +259,20 @@ export default function AdminDashboardPage(props) {
                 订单管理
               </Button>
               <Button className="w-full justify-start" variant="outline" onClick={() => navigateToPage('admin-users')}>
-                <Users className="h-4 w-4 mr-2" />
+                <UserCheck className="h-4 w-4 mr-2" />
                 用户管理
               </Button>
               <Button className="w-full justify-start" variant="outline" onClick={() => navigateToPage('admin-inquiries')}>
                 <MessageSquare className="h-4 w-4 mr-2" />
                 询盘管理
               </Button>
+              <Button className="w-full justify-start" variant="outline" onClick={() => navigateToPage('admin-settings')}>
+                <Settings2 className="h-4 w-4 mr-2" />
+                系统设置
+              </Button>
               <Button className="w-full justify-start" variant="outline" onClick={() => navigateToPage('admin-content')}>
                 <FileText className="h-4 w-4 mr-2" />
                 内容管理
-              </Button>
-              <Button className="w-full justify-start" variant="outline" onClick={() => navigateToPage('admin-settings')}>
-                <Settings className="h-4 w-4 mr-2" />
-                系统设置
               </Button>
             </CardContent>
           </Card>

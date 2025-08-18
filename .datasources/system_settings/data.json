@@ -1,0 +1,23 @@
+
+[
+  {
+    "_id": "settings_001",
+    "website_name": "中药材贸易网",
+    "website_logo": "https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=200&h=200&fit=crop",
+    "seo_title": "中药材贸易网 - 专业中药材批发交易平台",
+    "seo_keywords": "中药材,中药批发,中药材交易,中药饮片,中药材市场",
+    "seo_description": "专业的中药材批发交易平台，提供长白山野山参、岷县当归、宁夏枸杞等优质中药材，品质保证，价格优惠。",
+    "contact_phone": "400-123-4567",
+    "contact_email": "service@herbaltrade.com",
+    "contact_address": "北京市朝阳区建国路88号中药材大厦",
+    "social_wechat": "herbaltrade2024",
+    "social_weibo": "@中药材贸易网",
+    "social_facebook": "herbaltradechina",
+    "social_instagram": "herbaltrade_official",
+    "legal_icp": "京ICP备2024012345号",
+    "legal_police": "京公网安备11010502012345号",
+    "createdAt": 1735689600000,
+    "updatedAt": 1735689600000
+  }
+]
+  
