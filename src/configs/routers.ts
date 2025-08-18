@@ -5,6 +5,7 @@ import ADMIN_PRODUCTS from '../pages/admin-products.jsx';
 import INDEX from '../pages/index.jsx';
 import TCM_ABOUT-US from '../pages/tcm-about-us.jsx';
 import TCM_CONTACT-US from '../pages/tcm-contact-us.jsx';
+import PRODUCT_INQUIRY from '../pages/product-inquiry.jsx';
 export const routers = [{
   id: "tcm-products",
   component: TCM_PRODUCTS
@@ -26,4 +27,7 @@ export const routers = [{
 }, {
   id: "tcm-contact-us",
   component: TCM_CONTACT-US
+}, {
+  id: "product-inquiry",
+  component: PRODUCT_INQUIRY
 }]
